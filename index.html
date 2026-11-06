@@ -3,57 +3,82 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>BMI 계산기 | Health Check</title>
+  <meta name="description" content="키와 몸무게로 체질량지수(BMI)를 계산해 보세요.">
+  <title>BMI 계산기</title>
   <link rel="stylesheet" href="./style.css">
   <script src="./script.js" defer></script>
 </head>
 <body>
   <main class="calculator-container">
-    <div class="eyebrow">HEALTH CHECK</div>
-    <h1>BMI 계산기</h1>
-    <p class="subtitle">키와 몸무게를 입력하고 나의 체질량지수를 확인해 보세요.</p>
+    <div class="eyebrow"><span class="eyebrow-icon">＋</span> HEALTH CHECK</div>
 
-    <form id="bmi-form">
+    <header class="page-header">
+      <h1>BMI 계산기</h1>
+      <p>키와 몸무게를 입력하고<br>나의 체질량지수를 확인해 보세요.</p>
+    </header>
+
+    <form id="bmiForm" novalidate>
       <div class="input-group">
         <label for="height">키</label>
-        <div class="input-field">
-          <input type="number" id="height" placeholder="예: 170" min="1" step="any" required>
+        <div class="input-wrap">
+          <input type="number" id="height" name="height" placeholder="예: 170" min="1" max="300" step="any" inputmode="decimal" required>
           <span class="unit">cm</span>
         </div>
       </div>
+
       <div class="input-group">
         <label for="weight">몸무게</label>
-        <div class="input-field">
-          <input type="number" id="weight" placeholder="예: 70" min="0.1" step="any" required>
+        <div class="input-wrap">
+          <input type="number" id="weight" name="weight" placeholder="예: 65" min="0.1" max="500" step="any" inputmode="decimal" required>
           <span class="unit">kg</span>
         </div>
       </div>
-      <button type="submit">계산하기</button>
+
+      <button type="submit" class="calculate-button">BMI 계산하기 <span aria-hidden="true">→</span></button>
     </form>
 
-    <section class="result-container is-hidden" id="result-panel" aria-live="polite">
-      <p class="result-label">나의 체질량지수</p>
-      <h2 id="result"></h2>
-      <span id="state" class="status-badge"></span>
-      <p id="comment" class="result-comment"></p>
-    </section>
+    <section id="resultCard" class="result-container" aria-live="polite" hidden>
+      <p class="result-caption">나의 체질량지수</p>
+      <div class="result-main">
+        <strong id="result">0.00</strong>
+        <span class="result-unit">BMI</span>
+      </div>
+      <span id="state" class="status-badge">정상</span>
+      <p id="description" class="result-description"></p>
 
-    <section class="bmi-result-box" aria-label="BMI 판정 구간">
-      <div class="section-heading">BMI 판정 기준</div>
-      <div class="bmi-bar-wrap">
-        <div class="bmi-pointer" id="bmiPointer"></div>
-        <div class="bmi-bar">
-          <div class="bmi-segment under">저체중</div>
-          <div class="bmi-segment normal">정상</div>
-          <div class="bmi-segment over">과체중</div>
-          <div class="bmi-segment obese">비만</div>
+      <div class="bmi-result-box">
+        <div class="bar-heading">
+          <span>체질량지수 범위</span>
+          <span class="bar-note">판정 위치</span>
         </div>
-        <div class="bmi-scale">
-          <span>18.5</span><span>23</span><span>25</span>
+        <div class="bmi-bar-wrap">
+          <div class="bmi-pointer" id="bmiPointer" aria-hidden="true"></div>
+          <div class="bmi-bar" aria-label="저체중, 정상, 과체중, 비만 구간">
+            <div class="bmi-segment under">저체중</div>
+            <div class="bmi-segment normal">정상</div>
+            <div class="bmi-segment over">과체중</div>
+            <div class="bmi-segment obese">비만</div>
+          </div>
+          <div class="bmi-scale" aria-hidden="true">
+            <span class="scale-start">0</span>
+            <span class="scale-one">18.5</span>
+            <span class="scale-two">23</span>
+            <span class="scale-three">25</span>
+            <span class="scale-end">35+</span>
+          </div>
         </div>
       </div>
-      <p class="note">BMI는 건강 상태를 확인하는 참고 지표예요.</p>
     </section>
+
+    <section class="guide-card">
+      <h2>BMI 판정 기준</h2>
+      <div class="guide-row"><span><i class="dot under-dot"></i>저체중</span><strong>18.5 미만</strong></div>
+      <div class="guide-row"><span><i class="dot normal-dot"></i>정상</span><strong>18.5 ~ 22.9</strong></div>
+      <div class="guide-row"><span><i class="dot over-dot"></i>과체중</span><strong>23.0 ~ 24.9</strong></div>
+      <div class="guide-row"><span><i class="dot obese-dot"></i>비만</span><strong>25.0 이상</strong></div>
+    </section>
+
+    <p class="footer-note">BMI는 건강 상태를 살펴보는 참고 지표이며<br>개인의 건강 상태를 단독으로 진단하지 않습니다.</p>
   </main>
 </body>
 </html>
